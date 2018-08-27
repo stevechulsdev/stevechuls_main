@@ -30,12 +30,12 @@ public class RecyclerGridAdapter3 extends RecyclerView.Adapter<RecyclerGridViewH
     @Override
     public RecyclerGridViewHolder3 onCreateViewHolder(ViewGroup parent, int viewType) {
         View convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item3, null);
-        return new RecyclerGridViewHolder3(convertView);
+        return new RecyclerGridViewHolder3(convertView, recyclerItemArrayList);
     }
 
     @Override
     public void onBindViewHolder(RecyclerGridViewHolder3 holder, int position) {
-        String url = "http://sangchul.ipdisk.co.kr:8000/image/car/";
+        String url = "http://sangchul.ipdisk.co.kr:7364/image/car/";
 
         Picasso.with(context)
                 .load(url + recyclerItemArrayList.get(position).getImageUrl())

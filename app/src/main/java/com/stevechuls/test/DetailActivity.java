@@ -268,7 +268,7 @@ public class DetailActivity extends AppCompatActivity {
 
             ImageView imageView = (ImageView)rootView.findViewById(R.id.detail_imageview);
 
-            String url = "http://sangchul.ipdisk.co.kr:8000/image/cartoon/";
+            String url = "http://sangchul.ipdisk.co.kr:7364/image/cartoon/";
 
             Picasso.with(getContext())
                     .load(url + bundle.getString("imageurl"))

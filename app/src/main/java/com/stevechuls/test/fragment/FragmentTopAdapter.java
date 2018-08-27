@@ -39,7 +39,7 @@ public class FragmentTopAdapter extends FragmentPagerAdapter {
         for(int i=1; i<=5; i++)
         {
             ImageViewItem recyclerItem = new ImageViewItem();
-            recyclerItem.setImageUrl("http://sangchul.ipdisk.co.kr:8000/image/banner/banner_0"+i+".png");
+            recyclerItem.setImageUrl("http://sangchul.ipdisk.co.kr:7364/image/banner/banner_0"+i+".png");
             arrayList.add(recyclerItem);
         }
 
