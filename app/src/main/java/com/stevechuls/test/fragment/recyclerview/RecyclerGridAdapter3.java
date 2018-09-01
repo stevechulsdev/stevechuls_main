@@ -30,7 +30,7 @@ public class RecyclerGridAdapter3 extends RecyclerView.Adapter<RecyclerGridViewH
     @Override
     public RecyclerGridViewHolder3 onCreateViewHolder(ViewGroup parent, int viewType) {
         View convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item3, null);
-        return new RecyclerGridViewHolder3(convertView);
+        return new RecyclerGridViewHolder3(convertView, recyclerItemArrayList);
     }
 
     @Override
