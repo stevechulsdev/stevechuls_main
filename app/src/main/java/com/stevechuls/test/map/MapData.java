@@ -1,6 +1,4 @@
-package com.stevechuls.test;
-
-import com.google.gson.annotations.SerializedName;
+package com.stevechuls.test.map;
 
 /**
  * Created by entermate_ksc on 2018. 4. 16..

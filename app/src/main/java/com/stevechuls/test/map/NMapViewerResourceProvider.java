@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.stevechuls.test;
+package com.stevechuls.test.map;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -30,9 +30,7 @@ import android.widget.ListView;
 
 import com.nhn.android.maps.NMapOverlayItem;
 import com.nhn.android.maps.overlay.NMapPOIitem;
-import com.stevechuls.test.NMapPOIflagType;
 import com.nhn.android.mapviewer.overlay.NMapResourceProvider;
-import com.stevechuls.test.NMapCalloutCustomOldOverlay;
 import com.stevechuls.test.R;
 
 /**

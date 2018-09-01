@@ -1,7 +1,7 @@
 package com.stevechuls.test.network;
 
 import com.google.gson.annotations.SerializedName;
-import com.stevechuls.test.MapData;
+import com.stevechuls.test.map.MapData;
 
 import java.util.ArrayList;
 

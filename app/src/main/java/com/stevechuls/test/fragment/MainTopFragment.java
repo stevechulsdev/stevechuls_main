@@ -40,7 +40,7 @@ public class MainTopFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_image_view, container, false);
 
-        Log.e("ksc", "MainTopFragment111111111111111111111111111 onCreateView position imageview : " + position);
+//        Log.e("ksc", "MainTopFragment111111111111111111111111111 onCreateView position imageview : " + position);
 
         ImageView imageView = (ImageView) rootView.findViewById(R.id.fragment_image);
 

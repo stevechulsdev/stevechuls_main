@@ -5,13 +5,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 
-import com.stevechuls.test.R;
-
 /**
  * Created by entermate_ksc on 2018. 4. 10..
  */
 
 public class FragmentAdapter extends FragmentPagerAdapter {
+
+    private String TAG = "[stevechulsdev] FragmentAdapter";
 
     public FragmentAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
@@ -22,23 +22,23 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        Log.e("ksc", "FragmentAdapter gitItem position : " + position);
+        Log.e(TAG, "gitItem position : " + position);
 
         if(position == 0)
         {
-            Log.e("ksc", "MainFragment position : " + position);
-            return new MainFragment();
-//            return new MainFragment2();
+            Log.e(TAG, "ShoppingFragment position : " + position);
+            return new ShoppingFragment();
+//            return new CartoonFragment();
         }
         else if(position == 1)
         {
-            Log.e("ksc", "MainFragment2 position : " + position);
-            return new MainFragment2();
+            Log.e(TAG, "CartoonFragment position : " + position);
+            return new CartoonFragment();
         }
         else if(position == 2)
         {
-            Log.e("ksc", "MainFragment3 position : " + position);
-            return new MainFragment3();
+            Log.e(TAG, "CarFragment position : " + position);
+            return new CarFragment();
         }
         else
         {

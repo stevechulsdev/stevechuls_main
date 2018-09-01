@@ -12,7 +12,7 @@ import android.widget.Toast;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.stevechuls.test.fragment.FragmentViewPagerBottomAdapter;
+import com.stevechuls.test.fragment.FragmentViewPagerAdapter;
 
 public class MainActivity extends AppCompatActivity implements Button.OnClickListener {
 
@@ -55,10 +55,10 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
 
         //================================ViewPager=============================================
         // 메인액티비티 밑에 뷰페이저 초기화 및 뷰페이저 어댑터 세팅
-        FragmentViewPagerBottomAdapter fragmentViewPagerBottomAdapter = new FragmentViewPagerBottomAdapter(this, getSupportFragmentManager());
+        FragmentViewPagerAdapter fragmentViewPagerAdapter = new FragmentViewPagerAdapter(this, getSupportFragmentManager());
 
         bottomViewPager = findViewById(R.id.bottomViewPager);
-        bottomViewPager.setAdapter(fragmentViewPagerBottomAdapter);
+        bottomViewPager.setAdapter(fragmentViewPagerAdapter);
 
         // 3초당 뷰페이저를 이동
         final Handler handler = new Handler();

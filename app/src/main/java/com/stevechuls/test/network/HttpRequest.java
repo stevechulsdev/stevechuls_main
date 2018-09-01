@@ -2,14 +2,11 @@ package com.stevechuls.test.network;
 
 import android.util.Log;
 
-import com.stevechuls.test.MapData;
 import com.stevechuls.test.listener.MapDataResponseListener;
 import com.stevechuls.test.listener.ResponseListener;
 import com.stevechuls.test.listener.ResponseListener2;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;

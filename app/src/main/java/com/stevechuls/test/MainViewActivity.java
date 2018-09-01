@@ -2,6 +2,11 @@ package com.stevechuls.test;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -38,8 +43,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.stevechuls.test.fragment.FragmentAdapter;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLConnection;
+
 public class MainViewActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
+    private String TAG = "[stevechulsdev] MainViewActivity";
     private FragmentAdapter fragmentAdapter;
     private ViewPager mViewPager;
     private FragmentManager manager;
@@ -58,17 +69,20 @@ public class MainViewActivity extends AppCompatActivity implements NavigationVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navi_view);
 
+        // 메인뷰 액티비티의 툴바
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        manager = getSupportFragmentManager();
+        // 프래그먼트 탭 세팅
+        TabLayout tabLayout = findViewById(R.id.tabs);
 
+        // 3개의 프래그먼트 세팅
+        manager = getSupportFragmentManager();
         fragmentAdapter = new FragmentAdapter(manager);
 
+        // 뷰페이저 세팅
         mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(fragmentAdapter);
-
-        TabLayout tabLayout = findViewById(R.id.tabs);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
@@ -79,15 +93,26 @@ public class MainViewActivity extends AppCompatActivity implements NavigationVie
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        GoogleSignInOptions mGoogleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken("941220560711-i7a918lkfp10mjf06ibi86c32f8h65kj.apps.googleusercontent.com")
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, mGoogleSignInOptions);
+
+        mFirebaseAuth = FirebaseAuth.getInstance();
+
+        // 네비게이션뷰의 헤더뷰 값 변경
         navigationView = findViewById(R.id.navi_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         View headerView = navigationView.getHeaderView(0);
 
+        // 헤더뷰에 이미지, 텍스트, 버튼 추가
         mAccountTextView = headerView.findViewById(R.id.account_text);
         mAccountImageView = headerView.findViewById(R.id.account_image);
-
         mLoginBtn = headerView.findViewById(R.id.google_login_btn);
+        // 구글 로그인 버튼 클릭 시, 구글 로그인 api 실행
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,7 +122,9 @@ public class MainViewActivity extends AppCompatActivity implements NavigationVie
             }
         });
 
+        // 헤더뷰에 로그아웃 버튼 추가
         mLogoutBtn = headerView.findViewById(R.id.google_logout_btn);
+        // 구글 로그아웃 버튼 클릭 시, 구글 로그아웃 api 실행
         mLogoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,15 +144,6 @@ public class MainViewActivity extends AppCompatActivity implements NavigationVie
                 });
             }
         });
-
-        GoogleSignInOptions mGoogleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("941220560711-i7a918lkfp10mjf06ibi86c32f8h65kj.apps.googleusercontent.com")
-                .requestEmail()
-                .build();
-
-        mGoogleSignInClient = GoogleSignIn.getClient(this, mGoogleSignInOptions);
-
-        mFirebaseAuth = FirebaseAuth.getInstance();
     }
 
     @Override
@@ -226,9 +244,34 @@ public class MainViewActivity extends AppCompatActivity implements NavigationVie
                             SharedPreferences.Editor editor = preferences.edit();
                             editor.putString("name", user.getDisplayName());
                             editor.putString("email", user.getEmail());
+                            editor.putString("image", user.getPhotoUrl().toString());
                             editor.commit();
 
-                            mAccountImageView.setImageURI(user.getPhotoUrl());
+                            final Handler handler = new Handler() {
+                                public void handleMessage(Message msg) {
+                                    try {
+                                        FirebaseUser user = mFirebaseAuth.getCurrentUser();
+                                        URL url = new URL(user.getPhotoUrl().toString());
+                                        URLConnection conn = url.openConnection();
+                                        conn.connect();
+
+                                        BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
+                                        Bitmap bm = BitmapFactory.decodeStream(bis);
+                                        bis.close();
+                                        mAccountImageView.setImageBitmap(bm);
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            };
+
+                            new Thread() {
+                                public void run() {
+                                        Message msg = handler.obtainMessage();
+                                        handler.sendMessage(msg);
+                                }
+                            }.start();
+
                             mAccountTextView.setText(user.getDisplayName()+"\n"+user.getEmail());
 
                             mLoginBtn.setVisibility(View.GONE);
@@ -265,8 +308,29 @@ public class MainViewActivity extends AppCompatActivity implements NavigationVie
             SharedPreferences preferences = getSharedPreferences("userinfo", MODE_PRIVATE);
             String name = preferences.getString("name", "");
             String email = preferences.getString("email", "");
+
             mLoginBtn.setVisibility(View.GONE);
             mLogoutBtn.setVisibility(View.VISIBLE);
+
+            new Thread() {
+                public void run() {
+                    try {
+                        SharedPreferences preferences = getSharedPreferences("userinfo", MODE_PRIVATE);
+                        String image = preferences.getString("image", "");
+
+                        URL url = new URL(image);
+                        URLConnection conn = url.openConnection();
+                        conn.connect();
+
+                        BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
+                        Bitmap bm = BitmapFactory.decodeStream(bis);
+                        bis.close();
+                        mAccountImageView.setImageBitmap(bm);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
 
             mAccountTextView.setText(name+"\n"+email);
         }

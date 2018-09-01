@@ -1,6 +1,5 @@
 package com.stevechuls.test.listener;
 
-import com.stevechuls.test.MapData;
 import com.stevechuls.test.network.JsonItem2;
 
 /**
