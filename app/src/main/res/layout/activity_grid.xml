@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="com.stevechuls.test.GridActivity">
+    tools:context="com.stevechuls.test.MainViewActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"

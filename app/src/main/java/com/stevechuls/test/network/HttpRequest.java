@@ -26,7 +26,7 @@ public class HttpRequest {
 
     public void callAPI(final ResponseListener listener)
     {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://sangchul.ipdisk.co.kr:8000/").addConverterFactory(GsonConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://sangchul.ipdisk.co.kr:7364/").addConverterFactory(GsonConverterFactory.create()).build();
         ListAPI listAPI = retrofit.create(ListAPI.class);
         Call<JsonItem[]> mInfo = listAPI.getInfo();
         mInfo.enqueue(new Callback<JsonItem[]>() {
@@ -49,7 +49,7 @@ public class HttpRequest {
 
     public void callCarImageAPI(final ResponseListener listener)
     {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://sangchul.ipdisk.co.kr:8000/").addConverterFactory(GsonConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://sangchul.ipdisk.co.kr:7364/").addConverterFactory(GsonConverterFactory.create()).build();
         ListAPI listAPI = retrofit.create(ListAPI.class);
         Call<JsonItem[]> mInfo = listAPI.getCarImageInfo();
         mInfo.enqueue(new Callback<JsonItem[]>() {
@@ -72,7 +72,7 @@ public class HttpRequest {
 
     public void callCartoonImageAPI(final ResponseListener2 listener)
     {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://sangchul.ipdisk.co.kr:8000/").addConverterFactory(GsonConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://sangchul.ipdisk.co.kr:7364/").addConverterFactory(GsonConverterFactory.create()).build();
         ListAPI listAPI = retrofit.create(ListAPI.class);
         Call<JsonItem2[]> mInfo = listAPI.getCartoonImageInfo();
         mInfo.enqueue(new Callback<JsonItem2[]>() {

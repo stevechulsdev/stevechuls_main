@@ -31,7 +31,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GridActivity"
+            android:name=".MainViewActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait"/>
         <activity
@@ -43,7 +43,7 @@
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".MapActivity"
+            android:name=".SearchHospitalAroundActivity"
             android:theme="@style/CustomAppTheme"
             android:screenOrientation="portrait"></activity>
     </application>

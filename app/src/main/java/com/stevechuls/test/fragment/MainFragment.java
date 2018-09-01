@@ -50,10 +50,10 @@ public class MainFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         swipeRefreshLayout = (SwipeRefreshLayout)rootView.findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        FragmentTopAdapter fragmentTopAdapter = new FragmentTopAdapter(getContext(), getChildFragmentManager());
+        FragmentViewPagerBottomAdapter fragmentViewPagerBottomAdapter = new FragmentViewPagerBottomAdapter(getContext(), getChildFragmentManager());
 
         mTopViewPager = (ViewPager) rootView.findViewById(R.id.main_top_viewpager);
-        mTopViewPager.setAdapter(fragmentTopAdapter);
+        mTopViewPager.setAdapter(fragmentViewPagerBottomAdapter);
 
         final Handler handler = new Handler();
         final Runnable Update = new Runnable() {

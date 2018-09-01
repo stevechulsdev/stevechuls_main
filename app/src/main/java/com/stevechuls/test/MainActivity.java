@@ -12,74 +12,94 @@ import android.widget.Toast;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.stevechuls.test.fragment.FragmentTopAdapter;
+import com.stevechuls.test.fragment.FragmentViewPagerBottomAdapter;
 
 public class MainActivity extends AppCompatActivity implements Button.OnClickListener {
 
-    private Button mGridBtn;
-    private Button mMapBtn;
-    private Button mIngBtn1;
-    private Button mIngBtn2;
+    private Button mainView_btn;
+    private Button searchHospitalAround_btn;
+    private Button searchPharmacyAround_btn;
+    private Button searchHospitalSituation_btn;
+    private Button showHospitalEvent_btn;
+
     private int currentPage;
-    private int TOT_PAGE_COUNT = 5;
-    private Timer mTimer;
-    private ViewPager mTopViewPager;
+    private int TOTAL_PAGE_COUNT = 5;
+    private Timer timer;
+    private ViewPager bottomViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mGridBtn = (Button)findViewById(R.id.grid_btn);
-        mGridBtn.setOnClickListener(MainActivity.this);
+        //===========================MainActiviy 5개의 버튼=================================================
+        // 굿닥 캐스트 버튼
+        mainView_btn = findViewById(R.id.mainView_btn);
+        mainView_btn.setOnClickListener(MainActivity.this);
 
-        mMapBtn = (Button)findViewById(R.id.map_btn);
-        mMapBtn.setOnClickListener(MainActivity.this);
+        // 내 주변 병원 찾기 버튼
+        searchHospitalAround_btn = findViewById(R.id.searchHospitalAround_btn);
+        searchHospitalAround_btn.setOnClickListener(MainActivity.this);
 
-        mIngBtn1 = (Button)findViewById(R.id.ing_btn1);
-        mIngBtn1.setOnClickListener(MainActivity.this);
+        // 내 주변 약국 찾기 버트
+        searchPharmacyAround_btn = findViewById(R.id.searchPharmacyAround_btn);
+        searchPharmacyAround_btn.setOnClickListener(MainActivity.this);
 
-        mIngBtn2 = (Button)findViewById(R.id.ing_btn2);
-        mIngBtn2.setOnClickListener(MainActivity.this);
+        // 상황별 병원 찾기 버튼
+        searchHospitalSituation_btn = findViewById(R.id.searchHospitalSituation_btn);
+        searchHospitalSituation_btn.setOnClickListener(MainActivity.this);
 
-        FragmentTopAdapter fragmentTopAdapter = new FragmentTopAdapter(this, getSupportFragmentManager());
+        // 병원 이벤트 모아보기 버튼
+        showHospitalEvent_btn = findViewById(R.id.showHospitalEvent_btn);
+        showHospitalEvent_btn.setOnClickListener(MainActivity.this);
 
-        mTopViewPager = (ViewPager)findViewById(R.id.container);
-        mTopViewPager.setAdapter(fragmentTopAdapter);
+        //================================ViewPager=============================================
+        // 메인액티비티 밑에 뷰페이저 초기화 및 뷰페이저 어댑터 세팅
+        FragmentViewPagerBottomAdapter fragmentViewPagerBottomAdapter = new FragmentViewPagerBottomAdapter(this, getSupportFragmentManager());
 
+        bottomViewPager = findViewById(R.id.bottomViewPager);
+        bottomViewPager.setAdapter(fragmentViewPagerBottomAdapter);
+
+        // 3초당 뷰페이저를 이동
         final Handler handler = new Handler();
         final Runnable Update = new Runnable() {
             public void run() {
-                if (currentPage == TOT_PAGE_COUNT ) {
+                if (currentPage == TOTAL_PAGE_COUNT ) {
                     currentPage = 0;
                 }
-                mTopViewPager.setCurrentItem(currentPage++, true);
+                bottomViewPager.setCurrentItem(currentPage++, true);
             }
         };
 
-        mTimer= new Timer();
-        mTimer.schedule(new TimerTask() {
+        timer= new Timer();
+        timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 handler.post(Update);
             }
-        }, 550, 3300);
+        }, 0, 3000);
+        //====================================ViewPager=========================================
     }
 
+    /*
+        버튼 클릭 이벤트 처리
+    */
     @Override
     public void onClick(View view) {
 
-        if(view == mGridBtn)
+        if(view == mainView_btn) // 굿닥 캐스트 버튼 클릭 시, MainViewActivity로 이동
         {
-            Intent intent = new Intent(this, GridActivity.class);
+            Intent intent = new Intent(this, MainViewActivity.class);
             startActivity(intent);
         }
-        else if(view == mMapBtn)
+        else if(view == searchHospitalAround_btn) // 내 주변 병원 찾기 버튼 클릭 시, MapActivity로 이동
         {
-            Intent intent = new Intent(this, MapActivity.class);
+            Intent intent = new Intent(this, SearchHospitalAroundActivity.class);
             startActivity(intent);
         }
-        else if(view == mIngBtn1 || view == mIngBtn2)
+        else if(view == searchPharmacyAround_btn ||
+                view == searchHospitalSituation_btn ||
+                view == showHospitalEvent_btn) // 내 주변 약국 찾기, 상황별 병원 찾기, 병원이벤트 모아보기 버튼 클릭 시, 준비중
         {
             Toast.makeText(this, "준비중...", Toast.LENGTH_SHORT).show();
         }
@@ -89,25 +109,25 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
     public void onResume() {
         super.onResume();
 
-        if(mTimer == null)
+        if(timer == null)
         {
             final Handler handler = new Handler();
             final Runnable Update = new Runnable() {
                 public void run() {
-                    if (currentPage == TOT_PAGE_COUNT ) {
+                    if (currentPage == TOTAL_PAGE_COUNT ) {
                         currentPage = 0;
                     }
-                    mTopViewPager.setCurrentItem(currentPage++, true);
+                    bottomViewPager.setCurrentItem(currentPage++, true);
                 }
             };
 
-            mTimer= new Timer();
-            mTimer.schedule(new TimerTask() {
+            timer= new Timer();
+            timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
                     handler.post(Update);
                 }
-            }, 550, 3300);
+            }, 0, 3300);
         }
     }
 
@@ -116,14 +136,14 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         super.onPause();
 
         currentPage = 0;
-        mTimer.cancel();
-        mTimer = null;
+        timer.cancel();
+        timer = null;
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mTopViewPager.setCurrentItem(0, true);
+        bottomViewPager.setCurrentItem(0, true);
     }
 
 

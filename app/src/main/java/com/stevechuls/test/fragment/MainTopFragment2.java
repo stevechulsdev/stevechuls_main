@@ -42,7 +42,7 @@ public class MainTopFragment2 extends Fragment {
         ImageView imageView = (ImageView) rootView.findViewById(R.id.fragment_image2);
 
         Picasso.with(getContext())
-                .load("http://sangchul.ipdisk.co.kr:8000/image/banner/banner_01.png")
+                .load("http://sangchul.ipdisk.co.kr:7364/image/banner/banner_01.png")
                 .into(imageView);
 
 //        imageView.setImageDrawable(arrayList.get(position).getDrawable());

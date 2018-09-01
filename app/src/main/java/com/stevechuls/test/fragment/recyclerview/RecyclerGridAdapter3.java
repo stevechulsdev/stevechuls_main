@@ -35,7 +35,7 @@ public class RecyclerGridAdapter3 extends RecyclerView.Adapter<RecyclerGridViewH
 
     @Override
     public void onBindViewHolder(RecyclerGridViewHolder3 holder, int position) {
-        String url = "http://sangchul.ipdisk.co.kr:8000/image/car/";
+        String url = "http://sangchul.ipdisk.co.kr:7364/image/car/";
 
         Picasso.with(context)
                 .load(url + recyclerItemArrayList.get(position).getImageUrl())

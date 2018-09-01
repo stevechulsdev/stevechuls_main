@@ -23,7 +23,7 @@
             android:src="@drawable/stevechuls" />
 
         <Button
-            android:id="@+id/map_btn"
+            android:id="@+id/searchHospitalAround_btn"
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:text="내 주변 병원 찾기"
@@ -50,7 +50,7 @@
             android:weightSum="2">
 
             <Button
-                android:id="@+id/ing_btn1"
+                android:id="@+id/searchPharmacyAround_btn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -58,7 +58,7 @@
                 android:gravity="center_vertical"/>
 
             <Button
-                android:id="@+id/ing_btn2"
+                android:id="@+id/searchHospitalSituation_btn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -68,6 +68,7 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/showHospitalEvent_btn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -75,7 +76,7 @@
             android:gravity="center_vertical"/>
 
         <Button
-            android:id="@+id/grid_btn"
+            android:id="@+id/mainView_btn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -92,7 +93,7 @@
         android:layout_weight="4.5">
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/container"
+            android:id="@+id/bottomViewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
