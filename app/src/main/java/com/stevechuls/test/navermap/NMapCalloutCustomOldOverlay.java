@@ -30,13 +30,8 @@ import com.nhn.android.maps.NMapView;
 import com.nhn.android.mapviewer.overlay.NMapCalloutOverlay;
 import com.nhn.android.mapviewer.overlay.NMapResourceProvider;
 
-/**
- * Customized callout overlay.
- * 
- * @author kyjkim 
- */
 public class NMapCalloutCustomOldOverlay extends NMapCalloutOverlay {
-	private static final String LOG_TAG = "NMapCalloutCustomOverlay";
+	private String LOG_TAG = "[stevechulsdev] NMapCalloutCustomOverlay";
 	private static final boolean DEBUG = false;
 
 	private static final int CALLOUT_TEXT_COLOR = 0xFFFFFFFF;

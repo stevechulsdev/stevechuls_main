@@ -15,11 +15,6 @@
  */
 package com.stevechuls.test.navermap;
 
-/**
- * Wrapper class representing POI flag types on map view.
- * 
- * @author kyjkim
- */
 public class NMapPOIflagType {
 	public static final int UNKNOWN = 0x0000;
 

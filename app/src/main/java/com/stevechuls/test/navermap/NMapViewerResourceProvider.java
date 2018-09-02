@@ -33,11 +33,6 @@ import com.nhn.android.maps.overlay.NMapPOIitem;
 import com.nhn.android.mapviewer.overlay.NMapResourceProvider;
 import com.stevechuls.test.R;
 
-/**
- * Wrapper class to provider resources on map view.
- * 
- * @author kyjkim
- */
 public class NMapViewerResourceProvider extends NMapResourceProvider implements
 	NMapCalloutCustomOldOverlay.ResourceProvider {
 	private static final String LOG_TAG = "NMapViewerResourceProvider";
