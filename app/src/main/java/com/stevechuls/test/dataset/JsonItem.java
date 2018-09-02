@@ -1,12 +1,10 @@
-package com.stevechuls.test.network;
-
-import java.util.List;
+package com.stevechuls.test.dataset;
 
 /**
  * Created by entermate_ksc on 2018. 4. 12..
  */
 
-public class JsonItem2 {
+public class JsonItem {
     public String imagepath;
     public String title;
     public String descriptions;

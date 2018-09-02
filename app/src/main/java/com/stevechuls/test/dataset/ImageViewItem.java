@@ -1,4 +1,4 @@
-package com.stevechuls.test.fragment.imageview;
+package com.stevechuls.test.dataset;
 
 import android.graphics.drawable.Drawable;
 
@@ -6,8 +6,8 @@ import android.graphics.drawable.Drawable;
  * Created by entermate_ksc on 2018. 4. 10..
  */
 
-public class ImageViewItem2 {
-
+public class ImageViewItem {
+    private String imageUrl;
     private Drawable drawable;
     private String text;
 
@@ -29,5 +29,13 @@ public class ImageViewItem2 {
     public void setText(String text)
     {
         this.text = text;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

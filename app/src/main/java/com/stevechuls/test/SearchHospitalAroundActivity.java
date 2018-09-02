@@ -25,11 +25,11 @@ import com.nhn.android.mapviewer.overlay.NMapCalloutOverlay;
 import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
 import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
 import com.stevechuls.test.listener.MapDataResponseListener;
-import com.stevechuls.test.map.MapData;
-import com.stevechuls.test.map.NMapCalloutCustomOldOverlay;
-import com.stevechuls.test.map.NMapCalloutCustomOverlayView;
-import com.stevechuls.test.map.NMapPOIflagType;
-import com.stevechuls.test.map.NMapViewerResourceProvider;
+import com.stevechuls.test.navermap.MapData;
+import com.stevechuls.test.navermap.NMapCalloutCustomOldOverlay;
+import com.stevechuls.test.navermap.NMapCalloutCustomOverlayView;
+import com.stevechuls.test.navermap.NMapPOIflagType;
+import com.stevechuls.test.navermap.NMapViewerResourceProvider;
 import com.stevechuls.test.network.HttpRequest;
 
 import org.json.JSONException;

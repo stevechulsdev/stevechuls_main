@@ -1,8 +1,8 @@
-package com.stevechuls.test.fragment;
+package com.stevechuls.test.viewpager;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,19 +13,21 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import com.stevechuls.test.R;
-import com.stevechuls.test.fragment.imageview.ImageViewItem;
+import com.stevechuls.test.dataset.ImageViewItem;
 
 /**
  * Created by entermate_ksc on 2018. 4. 10..
  */
 
-public class MainTopFragment2 extends Fragment {
+public class ADViewPagerFragment extends Fragment {
 
     private ArrayList<ImageViewItem> arrayList;
+    private Context context;
 
-    public MainTopFragment2 getInstance(ArrayList<ImageViewItem> arrayList)
+    public ADViewPagerFragment getInstance(Context context, ArrayList<ImageViewItem> arrayList)
     {
         this.arrayList = arrayList;
+        this.context = context;
         return this;
     }
 
@@ -35,17 +37,13 @@ public class MainTopFragment2 extends Fragment {
         Bundle bundle = getArguments();
         int position = bundle.getInt("position");
 
-        View rootView = inflater.inflate(R.layout.fragment_image_view2, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_image_view, container, false);
 
-        Log.e("ksc", "MainTopFragment22222222222222222222222222222222 onCreateView position imageview : " + position);
+        ImageView imageView = rootView.findViewById(R.id.fragment_image);
 
-        ImageView imageView = (ImageView) rootView.findViewById(R.id.fragment_image2);
-
-        Picasso.with(getContext())
-                .load("http://sangchul.ipdisk.co.kr:7364/image/banner/banner_01.png")
+        Picasso.with(context)
+                .load(arrayList.get(position).getImageUrl())
                 .into(imageView);
-
-//        imageView.setImageDrawable(arrayList.get(position).getDrawable());
 
         return rootView;
     }

@@ -2,9 +2,9 @@ package com.stevechuls.test.network;
 
 import android.util.Log;
 
+import com.stevechuls.test.dataset.JsonItem;
 import com.stevechuls.test.listener.MapDataResponseListener;
 import com.stevechuls.test.listener.ResponseListener;
-import com.stevechuls.test.listener.ResponseListener2;
 
 import java.io.IOException;
 
@@ -67,23 +67,23 @@ public class HttpRequest {
         });
     }
 
-    public void callCartoonImageAPI(final ResponseListener2 listener)
+    public void callCartoonImageAPI(final ResponseListener listener)
     {
         Retrofit retrofit = new Retrofit.Builder().baseUrl("http://sangchul.ipdisk.co.kr:7364/").addConverterFactory(GsonConverterFactory.create()).build();
         ListAPI listAPI = retrofit.create(ListAPI.class);
-        Call<JsonItem2[]> mInfo = listAPI.getCartoonImageInfo();
-        mInfo.enqueue(new Callback<JsonItem2[]>() {
+        Call<JsonItem[]> mInfo = listAPI.getCartoonImageInfo();
+        mInfo.enqueue(new Callback<JsonItem[]>() {
             @Override
-            public void onResponse(Call<JsonItem2[]> call, Response<JsonItem2[]> response) {
+            public void onResponse(Call<JsonItem[]> call, Response<JsonItem[]> response) {
                 if(response != null && response.isSuccessful() && response.body() != null)
                 {
-                    JsonItem2[] jsonItem = response.body();
+                    JsonItem[] jsonItem = response.body();
                     listener.onSuccess(jsonItem);
                 }
             }
 
             @Override
-            public void onFailure(Call<JsonItem2[]> call, Throwable t) {
+            public void onFailure(Call<JsonItem[]> call, Throwable t) {
                 Log.e("ksc", "api call error : " + t.toString());
                 listener.onFail(t);
             }
@@ -92,14 +92,6 @@ public class HttpRequest {
 
     public void callMapDataAPI(String addr, final MapDataResponseListener listener)
     {
-//        String mAddr;
-//        mAddr = addr;
-//
-//        try {
-//            mAddr = URLEncoder.encode(addr, "UTF-8");
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://openapi.naver.com/v1/map/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -124,7 +116,6 @@ public class HttpRequest {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.e("ksc", "api call error : " + t.toString());
-//                listener.onFail(t);
             }
         });
     }

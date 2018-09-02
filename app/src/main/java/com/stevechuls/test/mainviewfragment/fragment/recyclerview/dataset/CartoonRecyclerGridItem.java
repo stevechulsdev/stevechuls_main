@@ -1,4 +1,4 @@
-package com.stevechuls.test.fragment.imageview;
+package com.stevechuls.test.mainviewfragment.fragment.recyclerview.dataset;
 
 import android.graphics.drawable.Drawable;
 
@@ -6,10 +6,19 @@ import android.graphics.drawable.Drawable;
  * Created by entermate_ksc on 2018. 4. 10..
  */
 
-public class ImageViewItem3 {
+public class CartoonRecyclerGridItem {
 
     private Drawable drawable;
     private String text;
+    private String imageUrl;
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public Drawable getDrawable()
     {

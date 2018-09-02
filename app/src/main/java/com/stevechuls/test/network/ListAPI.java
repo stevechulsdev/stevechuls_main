@@ -1,5 +1,7 @@
 package com.stevechuls.test.network;
 
+import com.stevechuls.test.dataset.JsonItem;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -22,7 +24,7 @@ public interface ListAPI {
     Call<JsonItem[]>getCarImageInfo();
 
     @GET("select_cartoonimage.php")
-    Call<JsonItem2[]>getCartoonImageInfo();
+    Call<JsonItem[]>getCartoonImageInfo();
 
     @Headers({
             "X-Naver-Client-Id: Qy2ragtopqNOuunPqHek",

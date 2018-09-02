@@ -80,7 +80,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="굿닥\n캐스트"
+            android:text="캐스트"
             android:gravity="center_vertical"/>
 
     </LinearLayout>
@@ -89,7 +89,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@android:color/holo_green_dark"
+        android:background="@drawable/banner_01"
         android:layout_weight="4.5">
 
         <android.support.v4.view.ViewPager
