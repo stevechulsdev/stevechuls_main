@@ -1,12 +1,12 @@
 package com.stevechuls.test;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Handler;
-import android.os.Message;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -25,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -128,6 +129,7 @@ public class MainViewActivity extends AppCompatActivity implements NavigationVie
         mLogoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 mFirebaseAuth.signOut();
                 mGoogleSignInClient.signOut().addOnCompleteListener(MainViewActivity.this, new OnCompleteListener<Void>() {
                     @Override
@@ -247,30 +249,33 @@ public class MainViewActivity extends AppCompatActivity implements NavigationVie
                             editor.putString("image", user.getPhotoUrl().toString());
                             editor.commit();
 
-                            final Handler handler = new Handler() {
-                                public void handleMessage(Message msg) {
-                                    try {
-                                        FirebaseUser user = mFirebaseAuth.getCurrentUser();
-                                        URL url = new URL(user.getPhotoUrl().toString());
-                                        URLConnection conn = url.openConnection();
-                                        conn.connect();
+                            new googleLoginImageTask().execute();
 
-                                        BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
-                                        Bitmap bm = BitmapFactory.decodeStream(bis);
-                                        bis.close();
-                                        mAccountImageView.setImageBitmap(bm);
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            };
+//                            runOnUiThread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    try {
+//                                        FirebaseUser user = mFirebaseAuth.getCurrentUser();
+//                                        URL url = new URL(user.getPhotoUrl().toString());
+//                                        URLConnection conn = url.openConnection();
+//                                        conn.connect();
+//
+//                                        BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
+//                                        Bitmap bm = BitmapFactory.decodeStream(bis);
+//                                        bis.close();
+//                                        mAccountImageView.setImageBitmap(bm);
+//                                    } catch (IOException e) {
+//                                        e.printStackTrace();
+//                                    }
+//                                }
+//                            });
 
-                            new Thread() {
-                                public void run() {
-                                        Message msg = handler.obtainMessage();
-                                        handler.sendMessage(msg);
-                                }
-                            }.start();
+//                            new Thread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//
+//                                }
+//                            }).start();
 
                             mAccountTextView.setText(user.getDisplayName()+"\n"+user.getEmail());
 
@@ -312,27 +317,72 @@ public class MainViewActivity extends AppCompatActivity implements NavigationVie
             mLoginBtn.setVisibility(View.GONE);
             mLogoutBtn.setVisibility(View.VISIBLE);
 
-            new Thread() {
-                public void run() {
-                    try {
-                        SharedPreferences preferences = getSharedPreferences("userinfo", MODE_PRIVATE);
-                        String image = preferences.getString("image", "");
+            new googleLoginImageTask().execute();
 
-                        URL url = new URL(image);
-                        URLConnection conn = url.openConnection();
-                        conn.connect();
-
-                        BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
-                        Bitmap bm = BitmapFactory.decodeStream(bis);
-                        bis.close();
-                        mAccountImageView.setImageBitmap(bm);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }.start();
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    try {
+//                        SharedPreferences preferences = getSharedPreferences("userinfo", MODE_PRIVATE);
+//                        String image = preferences.getString("image", "");
+//
+//                        URL url = new URL(image);
+//                        URLConnection conn = url.openConnection();
+//                        conn.connect();
+//
+//                        BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
+//                        Bitmap bm = BitmapFactory.decodeStream(bis);
+//                        bis.close();
+//                        mAccountImageView.setImageBitmap(bm);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }).start();
 
             mAccountTextView.setText(name+"\n"+email);
+        }
+    }
+
+    class googleLoginImageTask extends AsyncTask<Void, Void, Bitmap>
+    {
+        Bitmap bm;
+        ProgressDialog progDailog;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progDailog = new ProgressDialog(MainViewActivity.this);
+            progDailog.setMessage("Loading...");
+            progDailog.setIndeterminate(false);
+            progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progDailog.setCancelable(true);
+            progDailog.show();
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            super.onPostExecute(bitmap);
+            progDailog.dismiss();
+            mAccountImageView.setImageBitmap(bitmap);
+        }
+
+        @Override
+        protected Bitmap doInBackground(Void... value) {
+            try {
+                SharedPreferences preferences = getSharedPreferences("userinfo", MODE_PRIVATE);
+                String image = preferences.getString("image", "");
+
+                URL url = new URL(image);
+                URLConnection conn = url.openConnection();
+                conn.connect();
+
+                BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
+                bm = BitmapFactory.decodeStream(bis);
+                bis.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return bm;
         }
     }
 }
