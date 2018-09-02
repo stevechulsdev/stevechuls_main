@@ -48,7 +48,6 @@ public class DetailActivity extends AppCompatActivity {
     private ViewPager mViewPager;
 
     private Button mBackBtn;
-    private Button mInfoBtn;
     private Button mOneBtn;
     private Button mTwoBtn;
     private Button mThreeBtn;
@@ -192,8 +191,6 @@ public class DetailActivity extends AppCompatActivity {
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
-        private Button mInfoBtn;
-
         public PlaceholderFragment() {
         }
 
@@ -214,25 +211,11 @@ public class DetailActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             final View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
 
-            mInfoBtn = (Button)rootView.findViewById(R.id.info_btn);
-            mInfoBtn.setOnClickListener(listener);
-
 //            LinearLayout linearLayout = (LinearLayout)getActivity().findViewById(R.id.bottom_bar);
 //            linearLayout.setBackgroundColor(Color.parseColor("#0000CC"));
 
             return rootView;
         }
-
-        View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if(view.getId() == R.id.info_btn)
-                {
-                    Toast.makeText(getContext(), "준비중...", Toast.LENGTH_SHORT).show();
-                }
-            }
-        };
     }
 
     public static class PlaceholderFragment2 extends Fragment {
@@ -273,10 +256,6 @@ public class DetailActivity extends AppCompatActivity {
             Picasso.with(getContext())
                     .load(url + bundle.getString("imageurl"))
                     .into(imageView);
-//            holder.imageView2.getDrawable();
-
-//            ImageView imageView = (ImageView)rootView.findViewById(R.id.detail_imageview);
-//            imageView.setImageBitmap(bitmap);
 
             return rootView;
         }

@@ -15,7 +15,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/stevechuls"
+        android:background="@drawable/pattern_image_06"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     </android.support.v4.view.ViewPager>
@@ -39,7 +39,7 @@
                 android:layout_margin="15dp"
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/ic_ai_previous_item"
-                android:backgroundTint="@android:color/black"/>
+                android:backgroundTint="@android:color/white"/>
 
         </LinearLayout>
     </FrameLayout>
@@ -60,7 +60,7 @@
                 android:id="@+id/bottom_bar"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="#0000CC"
+                android:background="#353535"
                 android:orientation="horizontal"
                 android:weightSum="4">
 

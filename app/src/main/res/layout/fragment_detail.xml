@@ -6,30 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.stevechuls.test.DetailActivity$PlaceholderFragment">
 
-    <FrameLayout
-        android:id="@+id/top_frame"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentRight="true">
-
-        <LinearLayout
-            android:id="@+id/info_layout"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/info_btn"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="15dp"
-                android:background="@android:drawable/ic_menu_info_details"
-                android:backgroundTint="@android:color/black" />
-
-        </LinearLayout>
-
-    </FrameLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
